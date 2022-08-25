@@ -1,0 +1,35 @@
+﻿@page "/EmployeeManagement"
+@using SalesManagementApp.Entities
+@using SalesManagementApp.Models
+@using SalesManagementApp.Services.Contracts
+@using Syncfusion.Blazor.Grids
+
+@inject IEmployeeManagementService EmployeeManagementService
+
+<h3>Employee Management</h3>
+
+<div style="max-width:900px">
+    <SfGrid DataSource="employeeData">
+        <GridColumns>
+            <GridColumn IsPrimaryKey = "true" Field="@nameof(EmployeeModel.Id)" Width="50px"></GridColumn>
+            <GridColumn HeaderText="First Name" Field="@nameof(EmployeeModel.FirstName)"></GridColumn>
+            <GridColumn HeaderText="Last Name" Field="@nameof(EmployeeModel.LastName)"></GridColumn>
+            <GridColumn HeaderText="Designation" Field="@nameof(EmployeeModel.EmployeeJobTitleId)" Width="100px"></GridColumn>
+            <GridColumn Field="@nameof(EmployeeModel.Gender)" Width="100px"></GridColumn>
+            <GridColumn HeaderText="DOB" Field="@nameof(EmployeeModel.DateOfBirth)" Format="d"></GridColumn>
+            <GridColumn HeaderText="Reports" Field="@nameof(EmployeeModel.ReportToEmpId)" Width="100px"></GridColumn>
+
+        </GridColumns>
+    </SfGrid>
+</div>
+
+@code {
+    private List<EmployeeModel>? employeeData = null;
+    private List<EmployeeJobTitle>? employeeJobTitleData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employeeData = await EmployeeManagementService.GetEmployees();
+        employeeJobTitleData = await EmployeeManagementService.GetJobTitles();
+    }
+}
