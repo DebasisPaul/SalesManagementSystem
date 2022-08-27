@@ -22,5 +22,20 @@ namespace SalesManagementApp.Extensions
                               ImagePath = e.ImagePath,
                           }).ToListAsync();
         }
+        public static Employee Convert(this EmployeeModel employeeModel)
+        {
+            return new Employee
+            {
+                FirstName = employeeModel.FirstName,
+                LastName = employeeModel.LastName,
+                EmployeeJobTitleId = employeeModel.EmployeeJobTitleId,
+                Email = employeeModel.Email,
+                DateOfBirth = employeeModel.DateOfBirth,
+                ReportToEmpId = employeeModel.ReportToEmpId,
+                Gender = employeeModel.Gender,
+                ImagePath = employeeModel.Gender.ToUpper() == "MALE" ? "/Images/Profile/MaleDefault.jpg"
+                                                              : "/Images/Profile/FemaleDefault.jpg"
+            };
+        }
     }
 }
