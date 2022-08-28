@@ -2,12 +2,18 @@
 @using Syncfusion.Blazor.Lists
 @using System.Globalization
 @inject IProductService ProductService
+@inject IClientService ClientService
 
 <h3>ProductCatalog</h3>
 
 <div class="row mt-3">
-    <div class="col-12">
-        <SfListView DataSource="ProductData" CssClass="e-list-template listview-template">
+    <div class="col-12 mb-3">
+        <SfComboBox CssClass = "client-combo" DataSource = "ClientData" TValue = "int" TItem = "ClientModel"
+            @bind-Value="ClientId">
+            <ComboBoxFieldSettings Text = "RetailOutletName" Value = "Id"></ComboBoxFieldSettings>
+
+        </SfComboBox>
+        <SfListView ShowCheckBox = "true" DataSource="ProductData" CssClass="e-list-template listview-template">
             <ListViewFieldSettings TValue="ProductModel" Id="Id" Text="Name" GroupBy="CategoryName"></ListViewFieldSettings>
         </SfListView>
         <ListViewTemplates TValue = "ProductModel">
@@ -29,17 +35,31 @@
 </div>
 
 <style>
+    .listview-template{
+        max-width: 800px;
+        border-radius: 2px;
+        height: 470px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23 );
+        padding : 20px;
+    }
     .img-class{
         height:90px;
         width:150px;
     }
+    .client-combo{
+        max-width:800px;
+    }
 </style>
 
 @code {
+    private int ClientId { get; set; } = 1;
     private List<ProductModel> ProductData { get; set; }
+    private List<ClientModel> ClientData { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
         ProductData = await ProductService.GetProducts();
+        ClientData = await ClientService.GetClients();
     }
 }

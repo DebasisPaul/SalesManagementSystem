@@ -17,6 +17,8 @@ namespace SalesManagementApp.Data
             SeedData.AddEmployeeData(modelBuilder);
 
             SeedData.AddProductData(modelBuilder);
+
+            SeedData.AddClientData(modelBuilder);
         }
 
         public DbSet<Employee> Employees { get; set; }
@@ -24,5 +26,8 @@ namespace SalesManagementApp.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<RetailOutlet> RetailOutlets { get; set; }
     }
 }
