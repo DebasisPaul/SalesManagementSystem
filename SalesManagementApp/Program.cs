@@ -25,6 +25,7 @@ builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<IEmployeeManagementService, EmployeeManagementService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 
