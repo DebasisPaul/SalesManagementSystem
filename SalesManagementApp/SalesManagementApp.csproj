@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,8 +12,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Blazor.Charts" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Core" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.2.0.45" />
+    <PackageReference Include="Syncfusion.Blazor.Layouts" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Lists" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Notifications" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.2.0.45" />
