@@ -5,39 +5,45 @@
 @using Syncfusion.Blazor.Layouts
 @using System.Timers
 @inject NavigationManager NavigationManager
+@inject ISalesOrderReportService SalesOrderReportService
+
 <style>
     .e-dashboardlayout {
         padding: 20px;
         z-index: 0;
     }
+
     .e-panel {
         cursor: auto !important;
     }
+
     .chart-annotation {
         font-weight: bold;
         font-size: 11px;
-        position:relative;
+        position: relative;
         border-radius: 3px;
         background-color: rgb(36, 133, 250, 0.2);
         padding: 5px;
         color: @annotationFontColor;
     }
-    .chart-annotation::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 100%;
-        margin: 0 auto;
-        width: 0;
-        height: 0;
-        border-top: 10px solid rgb(36, 133, 250, 0.2);
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        z-index : 1
-    }
+
+        .chart-annotation::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            margin: 0 auto;
+            width: 0;
+            height: 0;
+            border-top: 10px solid rgb(36, 133, 250, 0.2);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            z-index: 1
+        }
+
     .title {
-		font-size: 13px;
+        font-size: 13px;
         font-weight: 500;
     }
 </style>
@@ -47,40 +53,19 @@
             <DashboardLayoutEvents Created="LayoutCreated"></DashboardLayoutEvents>
             <DashboardLayoutPanel Column="0" Row="0" SizeX="4" SizeY="2">
                 <HeaderTemplate>
-					<span class="title">Online vs Retail Sales</span>
-				</HeaderTemplate>
+                    <span class="title">Sales Gross / Month</span>
+                </HeaderTemplate>
                 <ContentTemplate>
                     @if (isLayoutRender)
                     {
-                        <SfChart @ref="chart1" Theme="@theme">
-                            <ChartArea>
-                                <ChartAreaBorder Width="0"></ChartAreaBorder>
-                            </ChartArea>
+                        <SfChart @ref = "chart1" Title="Employee - Sales Gross / Month">
                             <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
-                                <ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
-                                <ChartAxisLabelStyle Size="11px"></ChartAxisLabelStyle>
+
                             </ChartPrimaryXAxis>
-                            <ChartPrimaryYAxis Minimum="0" Maximum="100" Interval="20" LabelFormat="{value}%">
-                                <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
-                                <ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
-                                <ChartAxisLabelStyle Size="11px"></ChartAxisLabelStyle>
-                                <ChartAxisTitleStyle Size="13px"></ChartAxisTitleStyle>
-                            </ChartPrimaryYAxis>
-                            <ChartLegendSettings Position="@LegendPosition.Top"></ChartLegendSettings>
                             <ChartSeriesCollection>
-                                <ChartSeries DataSource="@ColumnChartDataCollection" Name="Online" Fill="#2485FA" XName="Period" YName="Percentage" Type="ChartSeriesType.Column">
-                                    <ChartMarker>
-                                        <ChartDataLabel Visible="true" Position="LabelPosition.Outer" Name="TextMapping">
-                                            <ChartDataLabelFont Size="9px" FontWeight="600"></ChartDataLabelFont>
-                                        </ChartDataLabel>
-                                    </ChartMarker>
-                                </ChartSeries>
-                                <ChartSeries DataSource="@ColumnChartData" Fill="#FEC200" Name="Retail" XName="Period" YName="Percentage" Type="ChartSeriesType.Column">
-                                    <ChartMarker>
-                                        <ChartDataLabel Visible="true" Position="LabelPosition.Outer" Name="TextMapping">
-                                            <ChartDataLabelFont Size="9px" FontWeight="600"></ChartDataLabelFont>
-                                        </ChartDataLabel>
-                                    </ChartMarker>
+                                <ChartSeries DataSource="@GrossSalesPricePerMonthData"
+                                         XName="GroupedFieldKey" YName="Price" Type="ChartSeriesType.Bar">
+
                                 </ChartSeries>
                             </ChartSeriesCollection>
                         </SfChart>
@@ -89,78 +74,53 @@
             </DashboardLayoutPanel>
             <DashboardLayoutPanel Column="4" Row="0" SizeX="4" SizeY="2">
                 <HeaderTemplate>
-					<span class="title">Product Wise Sales - 2021</span>
-				</HeaderTemplate>
+                    <span class="title">Sales Rep - Qty / Product Category</span>
+                </HeaderTemplate>
                 <ContentTemplate>
-                        @if (isLayoutRender)
-                        {
-                            <SfAccumulationChart EnableAnimation="true" Theme="@theme">
-                                <AccumulationChartBorder Color="transparent"></AccumulationChartBorder>
-                                <AccumulationChartTooltipSettings Enable="true" Format="${point.x}"></AccumulationChartTooltipSettings>
-                                <AccumulationChartSeriesCollection>
-                                    <AccumulationChartSeries DataSource="@PieChartDataCollection" XName="Product" YName="Percentage" Radius="80%" InnerRadius="40%" Palettes="@palettes">
-                                        <AccumulationDataLabelSettings Visible="true" Name="TextMapping" Position="AccumulationLabelPosition.Outside">
-                                            <AccumulationChartConnector Length="8px"></AccumulationChartConnector>
-                                        </AccumulationDataLabelSettings>
-                                    </AccumulationChartSeries>
-                                </AccumulationChartSeriesCollection>
-                                <AccumulationChartLegendSettings Width="130px" ShapePadding="10" Padding="10">
-                                    <AccumulationChartLegendFont Size="10px"></AccumulationChartLegendFont>
-                                </AccumulationChartLegendSettings>
-                                <AccumulationChartEvents OnLegendItemRender="OnLegendRender"></AccumulationChartEvents>
-                            </SfAccumulationChart>
-                        }
+                    @if (isLayoutRender)
+                    {
+                        <SfAccumulationChart Title="Qty / Product Category">
+                            <AccumulationChartLegendSettings Visible="true" Position="LegendPosition.Top">
+                            </AccumulationChartLegendSettings>
+
+                            <AccumulationChartTooltipSettings Enable="true">
+                            </AccumulationChartTooltipSettings>
+
+                            <AccumulationChartSeriesCollection>
+                                <AccumulationChartSeries DataSource="@QtyPerProductCatData"
+                                                     XName="GroupedFieldKey" YName="Qty" Radius="70%"
+                                                     InnerRadius="40%" Name="QtyPerProductCategory"
+                                                     Explode="true" ExplodeOffset="10%" ExplodeIndex="3">
+                                    <AccumulationDataLabelSettings Visible="true" Name="Label">
+                                        <AccumulationChartDataLabelFont FontWeight="600" Color="White">
+                                        </AccumulationChartDataLabelFont>
+                                    </AccumulationDataLabelSettings>
+
+                                </AccumulationChartSeries>
+                            </AccumulationChartSeriesCollection>
+
+                        </SfAccumulationChart>
+
+                    }
                 </ContentTemplate>
             </DashboardLayoutPanel>
             <DashboardLayoutPanel Column="0" Row="4" SizeX="8" SizeY="3">
                 <HeaderTemplate>
-					<span class="title" style="margin-left:40%">Monthly Sales for 2021</span>
-				</HeaderTemplate>
+                    <span class="title" style="margin-left:40%">Sales Rep - Sales Qty / Month</span>
+                </HeaderTemplate>
                 <ContentTemplate>
                     @if (isLayoutRender)
                     {
-                        <SfChart @ref="chart2" Theme="@theme">
-                            <ChartEvents OnAxisLabelRender="@OnChartAxisLabeRender"></ChartEvents>
-                            <ChartArea>
-                                <ChartAreaBorder Width="0"></ChartAreaBorder>
-                            </ChartArea>
-                            <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category" EdgeLabelPlacement="EdgeLabelPlacement.Shift">
-                                <ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
-                                <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
-                                <ChartAxisLabelStyle Size="12px"></ChartAxisLabelStyle>
-                            </ChartPrimaryXAxis>
-                            <ChartPrimaryYAxis LabelFormat="${value}" Minimum="0" Maximum="10000" Interval="2000">
-                                <ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
-                                <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
-                                <ChartAxisLabelStyle Size="12px"></ChartAxisLabelStyle>
-                                <ChartAxisTitleStyle Size="13px"></ChartAxisTitleStyle>
-                            </ChartPrimaryYAxis>
-                            <ChartTooltipSettings Enable="true" Header="" Shared="true" Format="${point.x} : <b> ${point.y} </b>"></ChartTooltipSettings>
-                            <ChartSeriesCollection>
-                                <ChartSeries DataSource="@ChartDataCollection" Fill="#2485FA" XName="Period" Opacity="0.5" Width="2.5" YName="Percentage" Type="ChartSeriesType.SplineArea">
-                                    <ChartSeriesBorder Width="2"></ChartSeriesBorder>
-                                    <ChartMarker Visible="true" Width="5" Height="5" Fill="#2485FA">
-                                    </ChartMarker>
-                                </ChartSeries>
-                            </ChartSeriesCollection>
-                            <ChartAnnotations>
-                                <ChartAnnotation CoordinateUnits="Units.Point" X="@AnnotationData[0].AnnotationX" Y="@AnnotationData[0].AnnotationY">
-                                    <ContentTemplate>
-                                        <div class="chart-annotation">Spring Break</div>
-                                    </ContentTemplate>
-                                </ChartAnnotation>
-                                <ChartAnnotation CoordinateUnits="Units.Point" X="@AnnotationData[1].AnnotationX" Y="@AnnotationData[1].AnnotationY">
-                                    <ContentTemplate>
-                                        <div class="chart-annotation">Summer Holiday</div>
-                                    </ContentTemplate>
-                                </ChartAnnotation>
-                                <ChartAnnotation CoordinateUnits="Units.Point" X="@AnnotationData[2].AnnotationX" Y="@AnnotationData[2].AnnotationY">
-                                    <ContentTemplate>
-                                        <div class="chart-annotation">Christmas <span style="margin-left:27%">Sale</span></div>
-                                    </ContentTemplate>
-                                </ChartAnnotation>
-                            </ChartAnnotations>
-                        </SfChart>
+                       <SfChart @ref = "chart2" Title="Qty / Month">
+                        <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
+                        </ChartPrimaryXAxis>
+                        <ChartSeriesCollection>
+                            <ChartSeries DataSource="@QtyPerMonthData" XName="GroupedFieldKey"
+                                         YName="Qty" Type="ChartSeriesType.Line">
+
+                            </ChartSeries>
+                        </ChartSeriesCollection>
+                    </SfChart>
                     }
                 </ContentTemplate>
             </DashboardLayoutPanel>
@@ -172,11 +132,24 @@
         stroke-width: 1 !important;
         stroke: white !important;
     }
+
     .e-chart-focused:focus {
         outline: none !important;
     }
 </style>
 @code {
+
+    List<GroupedFieldPriceModel> GrossSalesPricePerMonthData { get; set; }
+    List<GroupedFieldQtyModel> QtyPerProductCatData { get; set; }
+    List<GroupedFieldQtyModel> QtyPerMonthData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GrossSalesPricePerMonthData = await SalesOrderReportService.GetEmployeePricePerMonthData();
+        QtyPerProductCatData = await SalesOrderReportService.GetQtyPerProductCategory();
+        QtyPerMonthData = await SalesOrderReportService.GetQtyPerMonthData();
+    }
+
     private bool isLayoutRender;
     private Theme theme;
     private static Timer timer;
@@ -185,53 +158,7 @@
     private string[] palettes = new string[] { "#61EFCD", "#CDDE1F", "#FEC200", "#CA765A", "#2485FA", "#F57D7D", "#C152D2",
     "#8854D9", "#3D4EB8", "#00BCD7","#4472c4", "#ed7d31", "#ffc000", "#70ad47", "#5b9bd5", "#c1c1c1", "#6f6fe2", "#e269ae", "#9e480e", "#997300" };
     private string annotationFontColor;
-    public List<ChartData> ChartDataCollection { get; set; } = new List<ChartData>
-    {
-        new ChartData { Period = "Jan", Percentage = 3800 },
-        new ChartData { Period = "Feb", Percentage = 5200 },
-        new ChartData { Period = "Mar", Percentage = 850 },
-        new ChartData { Period = "Apr", Percentage = 5120},
-        new ChartData { Period = "May", Percentage = 3500 },
-        new ChartData { Period = "Jun", Percentage = 2220 },
-        new ChartData { Period = "Jul", Percentage = 6500 },
-        new ChartData { Period = "Aug", Percentage = 3250 },
-        new ChartData { Period = "Sep", Percentage = 1250 },
-        new ChartData { Period = "Oct", Percentage = 4000 },
-        new ChartData { Period = "Nov", Percentage = 2300 },
-        new ChartData { Period = "Dec", Percentage = 6800 }
-    };
-    public List<ChartData> PieChartDataCollection { get; set; } = new List<ChartData>
-    {
-        new ChartData { Product = "EarPods : 6%", Percentage = 6, TextMapping = "EarPods"},
-        new ChartData { Product = "TV : 12%", Percentage = 12, TextMapping = "TV"},
-        new ChartData { Product = "iPad : 10%", Percentage = 10, TextMapping = "iPad"},
-        new ChartData { Product = "PC : 8%", Percentage = 8, TextMapping = "PC"},
-        new ChartData { Product = "Laptop : 16%",  Percentage = 16, TextMapping = "Laptop"},
-        new ChartData { Product = "Mobile : 36%", Percentage = 36, TextMapping = "Mobile"},
-        new ChartData { Product = "Camera : 11%", Percentage = 11, TextMapping = "Camera"}
-    };
-    public List<ChartData> ColumnChartDataCollection { get; set; } = new List<ChartData>
-    {
-        new ChartData { Period = "2017", Percentage = 60, TextMapping = "60%" },
-        new ChartData { Period = "2018", Percentage = 56, TextMapping = "56%"},
-        new ChartData { Period = "2019", Percentage = 71, TextMapping = "71%" },
-        new ChartData { Period = "2020", Percentage = 85, TextMapping = "85%" },
-        new ChartData { Period = "2021", Percentage = 73, TextMapping = "73%" },
-    };
-    public List<ChartData> ColumnChartData { get; set; } = new List<ChartData>
-    {
-        new ChartData { Period = "2017", Percentage = 40, TextMapping = "40%" },
-        new ChartData { Period = "2018", Percentage = 44, TextMapping = "44%"},
-        new ChartData { Period = "2019", Percentage = 29, TextMapping = "29%" },
-        new ChartData { Period = "2020", Percentage = 15, TextMapping = "15%" },
-        new ChartData { Period = "2021", Percentage = 27, TextMapping = "27%" },
-    };
-    public List<ChartData> AnnotationData { get; set; } = new List<ChartData>
-    {
-        new ChartData { AnnotationX = "Apr", AnnotationY = "6050" },
-        new ChartData { AnnotationX = "Jul", AnnotationY = "7410" },
-        new ChartData { AnnotationX = "Dec", AnnotationY = "7900" }
-    };
+ 
     protected override void OnInitialized()
     {
         annotationFontColor = NavigationManager.Uri.Contains("dark") || theme == Theme.HighContrast ? "#E9ECEF" : "#343A40";
@@ -275,14 +202,5 @@
             }
         }
         args.Text = product + space + (textCollection[1].Trim()) + "     ";
-    }
-    public class ChartData
-    {
-        public string Period { get; set; }
-        public string Product { get; set; }
-        public double Percentage { get; set; }
-        public string TextMapping { get; set; }
-        public string AnnotationX { get; set; }
-        public string AnnotationY { get; set; }
     }
 }
