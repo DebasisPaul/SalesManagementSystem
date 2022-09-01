@@ -1,5 +1,7 @@
-﻿@page "/SRDashboard"
+﻿@page "/TLDashboard"
 
+@using SalesManagementApp.Models.ReportModels
+@using SalesManagementApp.Services.Contracts
 @using Syncfusion.Blazor.Charts
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Layouts
@@ -53,17 +55,17 @@
             <DashboardLayoutEvents Created="LayoutCreated"></DashboardLayoutEvents>
             <DashboardLayoutPanel Column="0" Row="0" SizeX="4" SizeY="2">
                 <HeaderTemplate>
-                    <span class="title">Sales Gross / Month</span>
+                    <span class="title">Team Leader - Sales Gross / Team Member</span>
                 </HeaderTemplate>
                 <ContentTemplate>
                     @if (isLayoutRender)
                     {
-                        <SfChart @ref = "chart1" Title="Employee - Sales Gross / Month">
+                        <SfChart @ref = "chart1" Title="Sales Gross / Team Member">
                             <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
 
                             </ChartPrimaryXAxis>
                             <ChartSeriesCollection>
-                                <ChartSeries DataSource="@GrossSalesPricePerMonthData"
+                                <ChartSeries DataSource="@GrossSalesPerTeamMemberData"
                                          XName="GroupedFieldKey" YName="Price" Type="ChartSeriesType.Bar">
 
                                 </ChartSeries>
@@ -74,7 +76,7 @@
             </DashboardLayoutPanel>
             <DashboardLayoutPanel Column="4" Row="0" SizeX="4" SizeY="2">
                 <HeaderTemplate>
-                    <span class="title">Sales Rep - Qty / Product Category</span>
+                    <span class="title">Team Leader - Qty / Team Member</span>
                 </HeaderTemplate>
                 <ContentTemplate>
                     @if (isLayoutRender)
@@ -87,7 +89,7 @@
                             </AccumulationChartTooltipSettings>
 
                             <AccumulationChartSeriesCollection>
-                                <AccumulationChartSeries DataSource="@QtyPerProductCatData"
+                                <AccumulationChartSeries DataSource="@QtyPerTeamMemberData"
                                                      XName="GroupedFieldKey" YName="Qty" Radius="70%"
                                                      InnerRadius="40%" Name="QtyPerProductCategory"
                                                      Explode="true" ExplodeOffset="10%" ExplodeIndex="3">
@@ -106,21 +108,22 @@
             </DashboardLayoutPanel>
             <DashboardLayoutPanel Column="0" Row="4" SizeX="8" SizeY="3">
                 <HeaderTemplate>
-                    <span class="title" style="margin-left:40%">Sales Rep - Sales Qty / Month</span>
+                    <span class="title" style="margin-left:40%">Team Leader - Team Sales Qty / Month</span>
                 </HeaderTemplate>
                 <ContentTemplate>
                     @if (isLayoutRender)
                     {
-                       <SfChart @ref = "chart2" Title="Qty / Month">
-                        <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
-                        </ChartPrimaryXAxis>
-                        <ChartSeriesCollection>
-                            <ChartSeries DataSource="@QtyPerMonthData" XName="GroupedFieldKey"
+                        <SfChart @ref="chart2" Title="Team Qty / Month">
+                            <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
+                            </ChartPrimaryXAxis>
+                            <ChartSeriesCollection>
+                                <ChartSeries DataSource="@TeamQtyPerMonthData" XName="GroupedFieldKey"
                                          YName="Qty" Type="ChartSeriesType.Line">
 
-                            </ChartSeries>
-                        </ChartSeriesCollection>
-                    </SfChart>
+                                </ChartSeries>
+                            </ChartSeriesCollection>
+                        </SfChart>
+
                     }
                 </ContentTemplate>
             </DashboardLayoutPanel>
@@ -139,15 +142,15 @@
 </style>
 @code {
 
-    List<GroupedFieldPriceModel> GrossSalesPricePerMonthData { get; set; }
-    List<GroupedFieldQtyModel> QtyPerProductCatData { get; set; }
-    List<GroupedFieldQtyModel> QtyPerMonthData { get; set; }
+    List<GroupedFieldPriceModel> GrossSalesPerTeamMemberData { get; set; }
+    List<GroupedFieldQtyModel> QtyPerTeamMemberData { get; set; }
+    List<GroupedFieldQtyModel> TeamQtyPerMonthData { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        GrossSalesPricePerMonthData = await SalesOrderReportService.GetEmployeePricePerMonthData();
-        QtyPerProductCatData = await SalesOrderReportService.GetQtyPerProductCategory();
-        QtyPerMonthData = await SalesOrderReportService.GetQtyPerMonthData();
+        GrossSalesPerTeamMemberData = await SalesOrderReportService.GetGrossSalesPerTeamMemberData();
+        QtyPerTeamMemberData = await SalesOrderReportService.GetQtyPerTeamMemberData();
+        TeamQtyPerMonthData = await SalesOrderReportService.GetTeamQtyPerMonthData();
     }
 
     private bool isLayoutRender;
@@ -175,7 +178,7 @@
         if (chart1 == null && chart2 == null)
             return;
         chart1.RefreshAsync(false);
-        chart2.RefreshAsync(false);
+        //chart2.RefreshAsync(false);
         timer.Enabled = false;
         timer.AutoReset = false;
     }

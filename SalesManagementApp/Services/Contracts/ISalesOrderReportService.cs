@@ -6,13 +6,24 @@ namespace SalesManagementApp.Services.Contracts
     {
         //SR
         Task<List<GroupedFieldPriceModel>> GetEmployeePricePerMonthData();
+
         Task<List<GroupedFieldQtyModel>> GetQtyPerProductCategory();
+
         Task<List<GroupedFieldQtyModel>> GetQtyPerMonthData();
 
         //TL
-        Task<List<GroupedFieldPriceModel>> GetGrossPerTeamMemberData();
+        Task<List<GroupedFieldPriceModel>> GetGrossSalesPerTeamMemberData();
+
         Task<List<GroupedFieldQtyModel>> GetQtyPerTeamMemberData();
+
         Task<List<GroupedFieldQtyModel>> GetTeamQtyPerMonthData();
+
+        //SM
+        Task<List<LocationProductCategoryModel>> GetQtyLocationProductCatData();
+
+        Task<List<GroupedFieldQtyModel>> GetQtyPerLocationData();
+
+        Task<List<MonthLocationModel>> GetQtyPerMonthLocationData();
 
     }
 }
