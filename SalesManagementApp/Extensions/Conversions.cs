@@ -2,6 +2,7 @@
 using SalesManagementApp.Data;
 using SalesManagementApp.Entities;
 using SalesManagementApp.Models;
+using SalesManagementApp.Pages;
 
 namespace SalesManagementApp.Extensions
 {
@@ -79,6 +80,42 @@ namespace SalesManagementApp.Extensions
 
         }
 
+        public static Appointment Convert(this AppointmentModel appointmentModel)
+        {
+            return new Appointment
+            {
+                EmployeeId = 9,
+                Description = appointmentModel.Description,
+                IsAllDay = appointmentModel.IsAllDay,
+                RecurrenceId = appointmentModel.RecurrenceId,
+                StartTime = appointmentModel.StartTime,
+                EndTime = appointmentModel.EndTime,
+                RecurrenceException = appointmentModel.RecurrenceException,
+                RecurrenceRule = appointmentModel.RecurrenceRule,
+                Location = appointmentModel.Location,
+                Subject = appointmentModel.Subject
+            };
+        }
+
+        public static async Task<List<AppointmentModel>> Convert(this IQueryable<Appointment> appointments)
+        {
+            return await (from a in appointments
+                          select new AppointmentModel
+                          {
+                              Id = a.Id,
+                              EmployeeId = a.EmployeeId,
+                              Description = a.Description,
+                              IsAllDay = a.IsAllDay,
+                              RecurrenceId = a.RecurrenceId,
+                              StartTime = a.StartTime,
+                              EndTime = a.EndTime,
+                              RecurrenceException = a.RecurrenceException,
+                              RecurrenceRule = a.RecurrenceRule,
+                              Location = a.Location,
+                              Subject = a.Subject
+                          }).ToListAsync();
+        }
+
         public static async Task<List<OrganisationModel>> ConvertToHierarchy(this IQueryable<Employee> employees,
                                              SalesManagementDbContext context)
         {
@@ -89,7 +126,7 @@ namespace SalesManagementApp.Extensions
                           select new OrganisationModel
                           {
                               EmployeeId = e.Id.ToString(),
-                              ReportsToId = e.ReportToEmpId != null ? e.ReportToEmpId.ToString() : "",
+                              ReportsToId = e.ReportToEmpId != null?e.ReportToEmpId.ToString() : "",
                               Email = e.Email,
                               FirstName = e.FirstName,
                               LastName = e.LastName,
