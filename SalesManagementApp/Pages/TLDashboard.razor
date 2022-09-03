@@ -1,5 +1,5 @@
 ﻿@page "/TLDashboard"
-
+@attribute [Authorize(Roles ="TL")]
 @using SalesManagementApp.Models.ReportModels
 @using SalesManagementApp.Services.Contracts
 @using Syncfusion.Blazor.Charts

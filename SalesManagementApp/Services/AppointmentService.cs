@@ -1,4 +1,5 @@
-﻿using SalesManagementApp.Data;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using SalesManagementApp.Data;
 using SalesManagementApp.Entities;
 using SalesManagementApp.Extensions;
 using SalesManagementApp.Models;
@@ -9,16 +10,23 @@ namespace SalesManagementApp.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly SalesManagementDbContext salesManagementDbContext;
+        private readonly AuthenticationStateProvider authenticationStateProvider;
 
-        public AppointmentService(SalesManagementDbContext salesManagementDbContext)
+        public AppointmentService(SalesManagementDbContext salesManagementDbContext,
+                                AuthenticationStateProvider authenticationStateProvider)
 
         {
             this.salesManagementDbContext = salesManagementDbContext;
+            this.authenticationStateProvider = authenticationStateProvider;
         }
         public async Task AddAppointment(AppointmentModel appointmentModel)
         {
             try
             {
+                var employee = await GetLoggedOnEmployee();
+
+                appointmentModel.EmployeeId = employee.Id;
+
                 Appointment appointment = appointmentModel.Convert();
                 await this.salesManagementDbContext.AddAsync(appointment);
                 await this.salesManagementDbContext.SaveChangesAsync();
@@ -54,7 +62,9 @@ namespace SalesManagementApp.Services
         {
             try
             {
-                return await this.salesManagementDbContext.Appointments.Where(e => e.EmployeeId == 9).Convert();
+                var employee = await GetLoggedOnEmployee();
+
+                return await this.salesManagementDbContext.Appointments.Where(e => e.EmployeeId == employee.Id).Convert();
             }
             catch (Exception)
             {
@@ -81,6 +91,14 @@ namespace SalesManagementApp.Services
 
                 await salesManagementDbContext.SaveChangesAsync();
             }
+        }
+
+        private async Task<Employee> GetLoggedOnEmployee()
+        {
+            var authState = await this.authenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            return await user.GetEmployeeObject(this.salesManagementDbContext);
         }
     }
 }

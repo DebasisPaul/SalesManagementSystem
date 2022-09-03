@@ -249,7 +249,7 @@ namespace SalesManagementApp.Data
                 Id = 1,
                 Name = "Mountain Bike 1",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/MountainBike1.jpg",
+                ImagePath = "/Images/products/MountainBike1.jpg",
                 Price = 200,
                 CategoryId = 1
 
@@ -259,7 +259,7 @@ namespace SalesManagementApp.Data
                 Id = 2,
                 Name = "Mountain Bike 2",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/MountainBike2.jpg",
+                ImagePath = "/Images/products/MountainBike2.jpg",
                 Price = 210,
                 CategoryId = 1
 
@@ -270,7 +270,7 @@ namespace SalesManagementApp.Data
                 Id = 3,
                 Name = "Road Bike 1",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/RoadBike1.jpg",
+                ImagePath = "/Images/products/RoadBike1.jpg",
                 Price = 240,
                 CategoryId = 2
 
@@ -280,7 +280,7 @@ namespace SalesManagementApp.Data
                 Id = 4,
                 Name = "Road Bike 2",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/RoadBike2.jpg",
+                ImagePath = "/Images/products/RoadBike2.jpg",
                 Price = 250,
                 CategoryId = 2
 
@@ -290,7 +290,7 @@ namespace SalesManagementApp.Data
                 Id = 5,
                 Name = "Road Bike 3",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/RoadBike3.jpg",
+                ImagePath = "/Images/products/RoadBike3.jpg",
                 Price = 252,
                 CategoryId = 2
 
@@ -300,7 +300,7 @@ namespace SalesManagementApp.Data
                 Id = 6,
                 Name = "Road Bike 4",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/RoadBike4.jpg",
+                ImagePath = "/Images/products/RoadBike4.jpg",
                 Price = 230,
                 CategoryId = 2
 
@@ -311,7 +311,7 @@ namespace SalesManagementApp.Data
                 Id = 7,
                 Name = "Tent 1",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Tent1.jpg",
+                ImagePath = "/Images/products/Tent1.jpg",
                 Price = 230,
                 CategoryId = 3
 
@@ -321,7 +321,7 @@ namespace SalesManagementApp.Data
                 Id = 8,
                 Name = "Tent 2",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Tent2.jpg",
+                ImagePath = "/Images/products/Tent2.jpg",
                 Price = 230,
                 CategoryId = 3
 
@@ -332,7 +332,7 @@ namespace SalesManagementApp.Data
                 Id = 9,
                 Name = "Air Mattress 1",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Mattress1.jpg",
+                ImagePath = "/Images/products/Mattress1.jpg",
                 Price = 11,
                 CategoryId = 3
 
@@ -342,7 +342,7 @@ namespace SalesManagementApp.Data
                 Id = 10,
                 Name = "Air Mattress 2",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Mattress2.jpg",
+                ImagePath = "/Images/products/Mattress2.jpg",
                 Price = 40,
                 CategoryId = 3
 
@@ -352,7 +352,7 @@ namespace SalesManagementApp.Data
                 Id = 11,
                 Name = "Air Mattress 3",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Mattress3.jpg",
+                ImagePath = "/Images/products/Mattress3.jpg",
                 Price = 54,
                 CategoryId = 3
 
@@ -362,7 +362,7 @@ namespace SalesManagementApp.Data
                 Id = 12,
                 Name = "Air Mattress 4",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Mattress4.jpg",
+                ImagePath = "/Images/products/Mattress4.jpg",
                 Price = 15,
                 CategoryId = 3
 
@@ -374,7 +374,7 @@ namespace SalesManagementApp.Data
                 Id = 13,
                 Name = "Pack 1",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Pack1.jpg",
+                ImagePath = "/Images/products/Pack1.jpg",
                 Price = 24,
                 CategoryId = 4
 
@@ -384,7 +384,7 @@ namespace SalesManagementApp.Data
                 Id = 14,
                 Name = "Pack 2",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Pack2.jpg",
+                ImagePath = "/Images/products/Pack2.jpg",
                 Price = 30,
                 CategoryId = 4
 
@@ -394,7 +394,7 @@ namespace SalesManagementApp.Data
                 Id = 15,
                 Name = "Pack 3",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Pack3.jpg",
+                ImagePath = "/Images/products/Pack3.jpg",
                 Price = 35,
                 CategoryId = 4
 
@@ -405,7 +405,7 @@ namespace SalesManagementApp.Data
                 Id = 16,
                 Name = "Boot 1",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Boot1.jpg",
+                ImagePath = "/Images/products/Boot1.jpg",
                 Price = 20,
                 CategoryId = 5
 
@@ -415,7 +415,7 @@ namespace SalesManagementApp.Data
                 Id = 17,
                 Name = "Boot 2",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Boot2.jpg",
+                ImagePath = "/Images/products/Boot2.jpg",
                 Price = 38,
                 CategoryId = 5
 
@@ -425,7 +425,7 @@ namespace SalesManagementApp.Data
                 Id = 18,
                 Name = "Boot 3",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Boot3.jpg",
+                ImagePath = "/Images/products/Boot3.jpg",
                 Price = 35,
                 CategoryId = 5
 
@@ -435,7 +435,7 @@ namespace SalesManagementApp.Data
                 Id = 19,
                 Name = "Boot 4",
                 Description = "Lorem ipsum dolor sit amet. Qui esse quos est impedit ipsa et modi saepe in culpa quia. ",
-                ImagePath = "/Images/Products/Boot4.jpg",
+                ImagePath = "/Images/products/Boot4.jpg",
                 Price = 31,
                 CategoryId = 5
 

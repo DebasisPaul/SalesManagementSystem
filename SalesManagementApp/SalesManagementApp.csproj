@@ -6,13 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Shared\LoginDisplay.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
     <PackageReference Include="Syncfusion.Blazor.Charts" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Core" Version="20.2.0.45" />
     <PackageReference Include="Syncfusion.Blazor.Diagram" Version="20.1.0.58" />
@@ -31,6 +38,7 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\EmployeeManagement.razor" />
     <_ContentIncludedByDefault Remove="Pages\TLDashboard.razor" />
+    <_ContentIncludedByDefault Remove="Shared\LoginDisplay.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +47,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\TLDashboard.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Shared\LoginDisplay.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Shared\LoginDisplay.razor" />
   </ItemGroup>
 
 

@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SalesManagementApp.Entities;
 
 namespace SalesManagementApp.Data
 {
-    public class SalesManagementDbContext:DbContext
+    public class SalesManagementDbContext : IdentityDbContext<IdentityUser>
     {
-        public SalesManagementDbContext(DbContextOptions<SalesManagementDbContext> options):base(options)
+        public SalesManagementDbContext(DbContextOptions<SalesManagementDbContext> options) : base(options)
         {
 
         }
@@ -19,6 +21,7 @@ namespace SalesManagementApp.Data
             SeedData.AddProductData(modelBuilder);
 
             SeedData.AddClientData(modelBuilder);
+
         }
 
         public DbSet<Employee> Employees { get; set; }
@@ -36,5 +39,7 @@ namespace SalesManagementApp.Data
         public DbSet<SalesOrderReport> SalesOrderReports { get; set; }
 
         public DbSet<Appointment> Appointments { get; set; }
-     }
+
+
+    }
 }
